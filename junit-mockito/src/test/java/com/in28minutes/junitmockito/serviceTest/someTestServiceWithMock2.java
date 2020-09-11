@@ -4,28 +4,33 @@ import com.in28minutes.junitmockito.data.SomeDataImpl;
 import com.in28minutes.junitmockito.service.SomeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-// refined
-@SpringBootTest
-public class someTestServiceWithMock1 {
+@ExtendWith(MockitoExtension.class)
+public class someTestServiceWithMock2 {
 
 
-    SomeServiceImpl someService=new SomeServiceImpl();
+    @InjectMocks
+    SomeServiceImpl someService;
 
-    SomeDataImpl someDataMock=mock(SomeDataImpl.class);
+    @Mock
+    SomeDataImpl someDataMock;
 
+    /*
+    the above loc 21 and 24
+    @Mock will create the for the class SomeDataImpl someDataMock;
+    @InjectMocks tells that the @Mock will be injected to this class i.e
+    a instance of SomeDataImpl someDataMock will be injected to SomeServiceImpl
+    i.e it will call the setter in SomeServiceImpl
+     */
 
-    @BeforeEach
-    public void beforeRunningEachTest(){
-
-        someService.setSomeData(someDataMock);
-    }
 
     @Test
     public void testingWithMockForNormalInput() {
