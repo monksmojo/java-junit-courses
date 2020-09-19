@@ -3,11 +3,14 @@ package com.in28minutes.junitMockito.section3.controller;
 import com.in28minutes.junitMockito.section3.entity.Item;
 import com.in28minutes.junitMockito.section3.service.ItemService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -16,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,7 +68,7 @@ public class ItemControllerTest {
                 .andReturn();
     }
 
-    // testing the api which returns hard item-list from database via service
+    // testing the api which returns item-list from database via service
     @Test
     public void getAllItemFromRepository() throws Exception{
 
@@ -86,6 +90,25 @@ public class ItemControllerTest {
                         "{\"itemName\":\"pot\",\"itemQuantity\":3,\"itemPrice\":60.0}," +
                         "{\"itemName\":\"plates\",\"itemQuantity\":6,\"itemPrice\":80.0}]"))
                 .andReturn();
+
+    }
+
+    // testing the api which saves the item to the in memory database
+    @Test
+    public void saveOneItemTest() throws Exception {
+
+        when(itemService.saveOne(Mockito.any(Item.class))).thenReturn(true);
+
+        RequestBuilder requestBuilder=MockMvcRequestBuilders.post("/item/save-one")
+                .accept(MediaType.APPLICATION_JSON)
+                .content("{\"itemName\":\"socks\",\"itemQuantity\":5,\"itemPrice\":50.0}")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult= mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.CREATED.value(),response.getStatus());
 
     }
 

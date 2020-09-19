@@ -1,10 +1,11 @@
-package com.in28minutes.junitMockito.section3.controller;
+package com.in28minutes.junitMockito.section3;
 
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
+@TestPropertySource(locations = {"classpath:application-test.properties"})
 public class JsonAssertTest {
     String actualResponse="{\"itemId\":41,\"itemName\":\"Ball\",\"itemQuantity\":7,\"itemPrice\":10.25}";
 

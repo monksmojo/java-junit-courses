@@ -1,4 +1,4 @@
-package com.in28minutes.junitMockito.section3.controller;
+package com.in28minutes.junitMockito.section3.service;
 
 import com.in28minutes.junitMockito.section3.entity.Item;
 import com.in28minutes.junitMockito.section3.repository.ItemRepository;
@@ -30,14 +30,12 @@ public class ItemServiceTest {
         when(itemRepository.findAll()).thenReturn(
                 Arrays.asList(new Item("gloves",5,45.0),
                 new Item("glasses",7,78.0),
-                new Item("pot",3,60.0),
-                new Item("plates",6,80.0)));
+                new Item("pot",3,60.0)));
 
         List<Item> itemList=itemService.getAllItemFromRepository();
         assertEquals(225.0,itemList.get(0).getTotalAmount());
         assertEquals(546.0,itemList.get(1).getTotalAmount());
         assertEquals(180.0,itemList.get(2).getTotalAmount());
-        assertEquals(480.0,itemList.get(3).getTotalAmount());
     }
 
 }
