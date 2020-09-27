@@ -11,3 +11,7 @@ Eample-2 Details Mocking with (and without) Spring Boot
 link- https://reflectoring.io/spring-boot-mock/
 
 This article gives a quick intro to the how and why of Mockito and Spring Boot’s integration with it.
+
+Example-3 Unit Testing Rest Services with Spring Boot and JUnit
+
+link- https://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
